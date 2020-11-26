@@ -1,0 +1,25 @@
+{
+    "name": "CreatorKitTriggerEditor.Editor",
+    "references": [
+        "ClusterVR.CreatorKit.Item",
+        "ClusterVR.CreatorKit.Item.Implements",
+        "ClusterVR.CreatorKit.Gimmick",
+        "ClusterVR.CreatorKit.Gimmick.Implements",
+        "ClusterVR.CreatorKit.Trigger",
+        "ClusterVR.CreatorKit.Trigger.Implements",
+        "ClusterVR.CreatorKit.Operation",
+        "ClusterVR.CreatorKit.Operation.Implements",
+        "ClusterVR.CreatorKit.Editor"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
