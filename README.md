@@ -5,7 +5,7 @@
 ## 要件
 
 - Unity 2019.4
-- Cluster Creator Kit v1.10.0, v1.11.0 で動作確認済み
+- Cluster Creator Kit v1.11.1 で動作確認済み
 
 ## インストール
 
@@ -29,7 +29,7 @@
     }
   ],
   "dependencies": {
-    "com.neoneobeam.cluster-creator-kit.trigger-editor": "0.1.0",
+    "com.neoneobeam.cluster-creator-kit.trigger-editor": "0.1.1",
     ...
 ```
 
