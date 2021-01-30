@@ -29,7 +29,7 @@
     }
   ],
   "dependencies": {
-    "com.neoneobeam.cluster-creator-kit.trigger-editor": "0.1.1",
+    "com.neoneobeam.cluster-creator-kit.trigger-editor": "0.1.2",
     ...
 ```
 
