@@ -81,9 +81,13 @@ namespace CreatorKitTriggerEditor.Editor
 
         static IEnumerable<GameObject> SceneGameObjects()
         {
-            var scene = SceneManager.GetActiveScene();
-            var sceneRootObjects = scene.GetRootGameObjects();
-            var itemTemplates = ItemTemplateGatherer.GatherItemTemplates(scene);
+            var scenes = Enumerable.Range(0, SceneManager.sceneCount)
+                .Select(SceneManager.GetSceneAt)
+                .ToArray();
+            var sceneRootObjects = scenes
+                .SelectMany(x => x.GetRootGameObjects());
+            var itemTemplates = scenes
+                .SelectMany(ItemTemplateGatherer.GatherItemTemplates);;
             return sceneRootObjects.Concat(itemTemplates.Select(t => t.gameObject)).ToArray();
         }
 
