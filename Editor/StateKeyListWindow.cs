@@ -95,7 +95,8 @@ namespace CreatorKitTriggerEditor.Editor
         {
             var triggers = GatherTriggerParams(rootGameObjects)
                 .SelectMany(t => t.Item2.SelectMany(x =>
-                    TargetConverter.Convert(x.Target).Select(target => (new StateKey(target, x.Key), t.Item1))));
+                    TargetConverter.Convert(x.Target)
+                        .Select(target => (new StateKey(target, x.RawKey), t.Item1))));
             var gimmicks = GatherGimmickKey(rootGameObjects)
                 .Select(t => (new StateKey(TargetConverter.Convert(t.Item2.Target), t.Item2.Key), t.Item1))
                 .Concat(GatherPlayerGimmickKey(rootGameObjects).Select(t =>
@@ -140,13 +141,10 @@ namespace CreatorKitTriggerEditor.Editor
             return Enumerable.Empty<StateKey>();
         }
 
-        static IEnumerable<(Component, ClusterVR.CreatorKit.Trigger.Implements.TriggerParam[])> GatherTriggerParams(IEnumerable<GameObject> rootGameObjects)
+        static IEnumerable<(Component, ClusterVR.CreatorKit.Trigger.TriggerParam[])> GatherTriggerParams(IEnumerable<GameObject> rootGameObjects)
         {
-            return rootGameObjects.Gather<IItemTrigger>().OfType<Component>()
-                    .Concat(rootGameObjects.Gather<IPlayerTrigger>().OfType<Component>())
-                    .Concat(rootGameObjects.Gather<IGlobalGimmick>().OfType<Component>())
-                    .SelectMany(x => GetValues<ClusterVR.CreatorKit.Trigger.Implements.TriggerParam[]>(x, 2)
-                        .Select(t => (x, t)));
+            return rootGameObjects.Gather<ITrigger>()
+                .Select(x => (x as Component, x.TriggerParams.ToArray()));
         }
 
         static IEnumerable<(Component, GimmickKey)> GatherGimmickKey(IEnumerable<GameObject> rootGameObjects)
