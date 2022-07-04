@@ -44,7 +44,11 @@ namespace CreatorKitTriggerEditor.Editor
                 triggers.AddRange(Gather(SceneGameObjects())
                     .OrderBy(x => x.StateKey.Target)
                     .ThenBy(x => x.StateKey.Key));
+#if UNITY_2021_3_OR_NEWER
+                listView.Rebuild();
+#else
                 listView.Refresh();
+#endif
             })
             {
                 text = "Refresh List"
@@ -63,8 +67,18 @@ namespace CreatorKitTriggerEditor.Editor
             {
                 selectionType = SelectionType.Multiple
             };
+#if UNITY_2021_3_OR_NEWER
+            listView.onItemsChosen += chosen => Selection.objects = chosen.SelectMany(x => ((StateKeyComponentsSet)x).Components).Select(c => c.gameObject).ToArray();
+#else
             listView.onItemChosen += chosen => Selection.objects = ((StateKeyComponentsSet)chosen).Components.Select(c => c.gameObject).ToArray();
+#endif
+
+#if UNITY_2021_3_OR_NEWER
+            listView.onSelectionChange += selection => Selection.objects = selection.SelectMany(s => ((StateKeyComponentsSet)s).Components).Select(c => c.gameObject).ToArray();
+#else
             listView.onSelectionChanged += selection => Selection.objects = selection.SelectMany(s => ((StateKeyComponentsSet)s).Components).Select(c => c.gameObject).ToArray();
+#endif
+
             listView.style.flexGrow = 1.0f;
             return listView;
         }
